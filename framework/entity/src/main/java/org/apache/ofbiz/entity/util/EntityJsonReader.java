@@ -57,6 +57,9 @@ public class EntityJsonReader {
     private List<GenericValue> valuesToDelete = new ArrayList<>(valuesPerWrite);
     private List<GenericValue> valuesToUpdate = new ArrayList<>(valuesPerWrite);
 
+    /**TODO need to evaluate how placeholders are going to be used in json data*/
+    private Map<String, Object> placeholderValues = null; //contains map of values for corresponding placeholders (eg. ${key}) in the entity xml data file.
+
     protected EntityJsonReader() {
     }
 
@@ -99,6 +102,10 @@ public class EntityJsonReader {
 
     public void setContinueOnFail(boolean continueOnFail) {
         this.continueOnFail = continueOnFail;
+    }
+
+    public void setPlaceholderValues(Map<String, Object> placeholderValues) {
+        this.placeholderValues = placeholderValues;
     }
 
     public List<Object> getMessageList() {
@@ -432,7 +439,7 @@ public class EntityJsonReader {
         return this.numberReplaced;
     }
 
-    private long delete(JSONObject jsonObject) throws GenericEntityException {
+    private long delete(JSONObject jsonObject) throws IOException, GenericEntityException {
         Iterator iterator = jsonObject.keySet().iterator();
         while (iterator.hasNext()) {
             try {
