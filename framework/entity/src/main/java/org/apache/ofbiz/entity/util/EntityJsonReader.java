@@ -101,10 +101,6 @@ public class EntityJsonReader {
         this.continueOnFail = continueOnFail;
     }
 
-    public void setPlaceholderValues(Map<String, Object> placeholderValues) {
-        this.placeholderValues = placeholderValues;
-    }
-
     public List<Object> getMessageList() {
         if (this.checkDataOnly && this.messageList == null) {
             this.messageList = new LinkedList();
@@ -176,6 +172,7 @@ public class EntityJsonReader {
                     } else if (key.equals("delete")) {
                         delete((JSONObject) jsonObject.get(key));
                     } else {
+                        /**TODO replace this block with createUpdate method*/
                         Object value = jsonObject.get(key);
                         if (value != null && !value.equals("null") && value instanceof JSONObject) {
                             flatJson.put(_prefix + key, this.iterateJSONObject((JSONObject) value));
