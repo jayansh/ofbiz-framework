@@ -92,6 +92,9 @@ under the License.
         <menu-item name="entityImport" title="${uiLabelMap.PageTitleEntityImport}">
             <link target="EntityImport"/>
         </menu-item>
+        <menu-item name="entityImportJson" title="${uiLabelMap.PageTitleEntityImportJson}">
+            <link target="EntityImportJson"/>
+        </menu-item>
         <menu-item name="entityImportDir" title="${uiLabelMap.PageTitleEntityImportDir}">
             <link target="EntityImportDir"/>
         </menu-item>

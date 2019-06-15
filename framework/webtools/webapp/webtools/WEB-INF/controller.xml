@@ -426,6 +426,13 @@ under the License.
         <response name="success" type="view" value="EntityImport"/>
         <response name="error" type="view" value="EntityImport"/>
     </request-map>
+    <request-map uri="EntityImportJson"><security https="true" auth="true"/><response name="success" type="view" value="EntityImportJson"/></request-map>
+    <request-map uri="entityImportJson">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="entityImportJson"/>
+        <response name="success" type="view" value="EntityImportJson"/>
+        <response name="error" type="view" value="EntityImportJson"/>
+    </request-map>
     <request-map uri="EntityImportReaders"><security https="true" auth="true"/><response name="success" type="view" value="EntityImportReaders"/></request-map>
     <request-map uri="entityImportReaders">
         <security https="true" auth="true"/>
@@ -642,6 +649,7 @@ under the License.
     <view-map name="ProgramExport" type="screen" page="component://webtools/widget/EntityScreens.xml#ProgramExport"/>
     <view-map name="EntityImportDir" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportDir"/>
     <view-map name="EntityImport" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImport"/>
+    <view-map name="EntityImportJson" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportJson"/>
     <view-map name="EntityImportReaders" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportReaders"/>
 
     <!-- cert views -->

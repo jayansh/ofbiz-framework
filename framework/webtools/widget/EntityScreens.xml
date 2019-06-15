@@ -138,6 +138,28 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EntityImportJson">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEntityImport"/>
+                <set field="tabButtonItem" value="entityImportJson"/>
+                <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
+
+                <set field="messages" from-field="parameters.messages"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet>
+                            <platform-specific>
+                                <html><html-template location="component://webtools/template/entity/EntityImportJson.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EntityImportReaders">
         <section>
             <actions>

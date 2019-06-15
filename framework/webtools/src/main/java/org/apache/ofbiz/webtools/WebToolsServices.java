@@ -80,6 +80,7 @@ import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityDataAssert;
 import org.apache.ofbiz.entity.util.EntityDataLoader;
+import org.apache.ofbiz.entity.util.EntityJsonReader;
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntitySaxReader;
@@ -312,6 +313,111 @@ public class WebToolsServices {
         return resp;
     }
 
+    public static Map<String, Object> entityImportJson(DispatchContext dctx, Map<String, ? extends Object> context) {
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
+        List<String> messages = new LinkedList<>();
+
+        String filename = (String)context.get("filename");
+        String fmfilename = (String)context.get("fmfilename");
+        String fulltext = (String)context.get("fulltext");
+        boolean isUrl = (String)context.get("isUrl") != null;
+        String onlyInserts = (String)context.get("onlyInserts");
+        String maintainTimeStamps = (String)context.get("maintainTimeStamps");
+        String createDummyFks = (String)context.get("createDummyFks");
+        String checkDataOnly = (String) context.get("checkDataOnly");
+        Map<String, Object> placeholderValues = UtilGenerics.checkMap(context.get("placeholderValues"));
+
+        Integer txTimeout = (Integer)context.get("txTimeout");
+        if (txTimeout == null) {
+            txTimeout = 7200;
+        }
+        URL url = null;
+
+        // #############################
+        // The filename to parse is prepared
+        // #############################
+        if (UtilValidate.isNotEmpty(filename)) {
+            try {
+                url = isUrl?FlexibleLocation.resolveLocation(filename):UtilURL.fromFilename(filename);
+            } catch (MalformedURLException mue) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsInvalidFileName", UtilMisc.toMap("filename", filename, "errorString", mue.getMessage()), locale));
+            } catch (Exception exc) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrorReadingFileName", UtilMisc.toMap("filename", filename, "errorString", exc.getMessage()), locale));
+            }
+        }
+
+        // #############################
+        // FM Template
+        // #############################
+        if (UtilValidate.isNotEmpty(fmfilename) && (UtilValidate.isNotEmpty(fulltext) || url != null)) {
+            File fmFile = new File(fmfilename);
+            if (!fmFile.exists()) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrorReadingTemplateFile", UtilMisc.toMap("filename", fmfilename, "errorString", "Template file not found."), locale));
+            }
+            try {
+                DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+                InputSource ins = url != null ? new InputSource(url.openStream()) : new InputSource(new StringReader(fulltext));
+                Document doc;
+                try {
+                    doc = documentBuilder.parse(ins);
+                } finally {
+                    if (ins.getByteStream() != null) {
+                        ins.getByteStream().close();
+                    }
+                    if (ins.getCharacterStream() != null) {
+                        ins.getCharacterStream().close();
+                    }
+                }
+                StringWriter outWriter = new StringWriter();
+                Map<String, Object> fmcontext = new HashMap<>();
+                fmcontext.put("doc", doc);
+                FreeMarkerWorker.renderTemplate(fmFile.toURI().toURL().toString(), fmcontext, outWriter);
+                fulltext = outWriter.toString();
+            } catch (Exception ex) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrorProcessingTemplateFile", UtilMisc.toMap("filename", fmfilename, "errorString", ex.getMessage()), locale));
+            }
+        }
+
+        // #############################
+        // The parsing takes place
+        // #############################
+        if (fulltext != null || url != null) {
+            try {
+                Map<String, Object> inputMap = UtilMisc.toMap("onlyInserts", onlyInserts,
+                        "createDummyFks", createDummyFks,
+                        "checkDataOnly", checkDataOnly,
+                        "maintainTimeStamps", maintainTimeStamps,
+                        "txTimeout", txTimeout,
+                        "placeholderValues", placeholderValues,
+                        "userLogin", userLogin);
+                if (fulltext != null) {
+                    inputMap.put("xmltext", fulltext);
+                } else {
+                    inputMap.put("url", url);
+                }
+                Map<String, Object> outputMap = dispatcher.runSync("parseEntityJsonFile", inputMap);
+                if (ServiceUtil.isError(outputMap)) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrorParsingFile", UtilMisc.toMap("errorString", ServiceUtil.getErrorMessage(outputMap)), locale));
+                } else {
+                    Long numberRead = (Long)outputMap.get("rowProcessed");
+                    messages.add(UtilProperties.getMessage(resource, "EntityImportRowProcessed", UtilMisc.toMap("numberRead", numberRead.toString()), locale));
+                }
+            } catch (GenericServiceException gsex) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityImportParsingError", UtilMisc.toMap("errorString", gsex.getMessage()), locale));
+            } catch (Exception ex) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityImportParsingError", UtilMisc.toMap("errorString", ex.getMessage()), locale));
+            }
+        } else {
+            messages.add(UtilProperties.getMessage(resource, "EntityImportNoXmlFileSpecified", locale));
+        }
+
+        // send the notification
+        Map<String, Object> resp = UtilMisc.toMap("messages", (Object) messages);
+        return resp;
+    }
+
     public static Map<String, Object> entityImportReaders(DispatchContext dctx, Map<String, Object> context) {
         String readers = (String) context.get("readers");
         String overrideDelegator = (String) context.get("overrideDelegator");
@@ -446,6 +552,46 @@ public class WebToolsServices {
         long rowProcessed = 0;
         try {
             EntitySaxReader reader = new EntitySaxReader(delegator);
+            reader.setUseTryInsertMethod(onlyInserts);
+            reader.setMaintainTxStamps(maintainTimeStamps);
+            reader.setTransactionTimeout(txTimeout);
+            reader.setCreateDummyFks(createDummyFks);
+            reader.setCheckDataOnly(checkDataOnly);
+            reader.setPlaceholderValues(placeholderValues);
+
+            long numberRead = (url != null ? reader.parse(url) : reader.parse(xmltext));
+            rowProcessed = numberRead;
+        } catch (Exception ex) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityImportParsingError", UtilMisc.toMap("errorString", ex.toString()), locale));
+        }
+        // send the notification
+        Map<String, Object> resp = UtilMisc.<String, Object>toMap("rowProcessed", rowProcessed);
+        return resp;
+    }
+
+    public static Map<String, Object> parseEntityJsonFile(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        URL url = (URL) context.get("url");
+        String xmltext = (String) context.get("xmltext");
+
+        if (url == null && xmltext == null) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityImportNoXmlFileOrTextSpecified", locale));
+        }
+        boolean onlyInserts = (String) context.get("onlyInserts") != null;
+        boolean maintainTimeStamps = (String) context.get("maintainTimeStamps") != null;
+        boolean createDummyFks = (String) context.get("createDummyFks") != null;
+        boolean checkDataOnly = (String) context.get("checkDataOnly") != null;
+        Integer txTimeout = (Integer) context.get("txTimeout");
+        Map<String, Object> placeholderValues = UtilGenerics.checkMap(context.get("placeholderValues"));
+
+        if (txTimeout == null) {
+            txTimeout = 7200;
+        }
+
+        long rowProcessed = 0;
+        try {
+            EntityJsonReader reader = new EntityJsonReader(delegator);
             reader.setUseTryInsertMethod(onlyInserts);
             reader.setMaintainTxStamps(maintainTimeStamps);
             reader.setTransactionTimeout(txTimeout);

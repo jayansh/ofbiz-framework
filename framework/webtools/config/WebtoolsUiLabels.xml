@@ -539,6 +539,19 @@
         <value xml:lang="zh">XML数据导入目录 </value>
         <value xml:lang="zh-TW">XML資料匯入目錄 </value>
     </property>
+    <property key="PageTitleEntityImportJson">
+        <value xml:lang="de">JSON-Daten importieren</value>
+        <value xml:lang="en">JSON Data Import</value>
+        <value xml:lang="fr">Import de données JSON</value>
+        <value xml:lang="it">Importa dati da JSON</value>
+        <value xml:lang="ja">JSONデータインポート</value>
+        <value xml:lang="pt">Importar dados JSON</value>
+        <value xml:lang="ro">Importa Datele din JSON</value>
+        <value xml:lang="th">นำเข้าข้อมูล json</value>
+        <value xml:lang="vi">Nhập khẩu dữ liệu JSON</value>
+        <value xml:lang="zh">JSON数据导入</value>
+        <value xml:lang="zh-TW">JSON資料匯入</value>
+    </property>
     <property key="PageTitleEntityImportReaders">
         <value xml:lang="de">Leser für XML Datenimport</value>
         <value xml:lang="en">XML Data Import Readers</value>
@@ -1219,6 +1232,19 @@
         <value xml:lang="vi">Hoàn thành tài liệu XML (Đánh dấu gốc: entity-engine-xml)</value>
         <value xml:lang="zh">完成XML文档 (根标签: entity-engine-xml)</value>
         <value xml:lang="zh-TW">完成XML檔 (根標簽: entity-engine-xml)</value>
+    </property>
+    <property key="WebtoolsCompleteJsonData">
+        <value xml:lang="de">Vollständiges JSON dokument</value>
+        <value xml:lang="en">Complete JSON data</value>
+        <value xml:lang="fr">Compléter le data JSON</value>
+        <value xml:lang="it">Documento JSON</value>
+        <value xml:lang="ja">JSONドキュメントを完了する</value>
+        <value xml:lang="pt">Documento JSON completo</value>
+        <value xml:lang="ro">Completeaza documentul JSON</value>
+        <value xml:lang="th">เอกสาร JSON เสร็จเรียบร้อยแล้ว</value>
+        <value xml:lang="vi">Hoàn thành tài liệu JSON</value>
+        <value xml:lang="zh">完成JSON文档</value>
+        <value xml:lang="zh-TW">完成JSON檔</value>
     </property>
     <property key="WebtoolsComponentsLoaded">
         <value xml:lang="de">Komponenten geladen</value>
@@ -2639,6 +2665,19 @@
         <value xml:lang="vi">Nhập khẩu XML từ nguồn dữ liệu</value>
         <value xml:lang="zh">把XML导入到数据源</value>
         <value xml:lang="zh-TW">把XML匯入到資料源</value>
+    </property>
+    <property key="WebtoolsJsonImportToDataSource">
+        <value xml:lang="de">JSON-Import in DataSource(n)</value>
+        <value xml:lang="en">JSON Import to DataSource(s)</value>
+        <value xml:lang="fr">Import JSON vers la source de données</value>
+        <value xml:lang="it">Importazione JSON in Datasource</value>
+        <value xml:lang="ja">データソースにJSONをインポート</value>
+        <value xml:lang="pt">Importar JSON para DataSource(s)</value>
+        <value xml:lang="ro">Importa Sursa de Date din JSON</value>
+        <value xml:lang="th">นำเข้า JSON ไปยังแหล่งข้อมูล</value>
+        <value xml:lang="vi">Nhập khẩu JSON từ nguồn dữ liệu</value>
+        <value xml:lang="zh">把JSON导入到数据源</value>
+        <value xml:lang="zh-TW">把JSON匯入到資料源</value>
     </property>
     <property key="WebtoolsImportantLogLevel">
         <value xml:lang="de">Wichtig</value>
@@ -5964,6 +6003,19 @@
         <value xml:lang="vi">Giao diện bạn đang sử dụng cung cấp chức năng Nhập khẩu dữ liệu từ các Tài liệu Thực thể XML. Các tài liệu này có thẻ gốc "&lt;entity-engine-xml&gt;"</value>
         <value xml:lang="zh">本页面用于导入导出的实体引擎XML文档。这些文档都有一个根标签 "&lt;entity-engine-xml&gt;".</value>
         <value xml:lang="zh-TW">本頁面用於匯入匯出的資料實體引擎XML檔.這些檔都有一個根標簽 "&lt;entity-engine-xml&gt;".&lt;/entity-engine-xml&gt;</value>
+    </property>
+    <property key="WebtoolsJSONImportInfo">
+        <value xml:lang="de">Hier können zuvor exportierte Entitäten JSON Dateien wieder in die Datenbank importiert werden.</value>
+        <value xml:lang="en">This page can be used to import exported Entity Engine JSON data.</value>
+        <value xml:lang="fr">Cette page peut être utilisée pour importer des documents JSON exportés par le moteur d'entité.".</value>
+        <value xml:lang="it">Questa pagina può essere usata per importare documenti JSON contenenti export di Entita'.</value>
+        <value xml:lang="ja">このページでエクスポートされたエンティティエンジンJSONドキュメントをインポートすることができます。</value>
+        <value xml:lang="pt">Esta pÃ¡gina pode ser utilizado para importaÃ§Ã£o e exportaÃ§Ã£o de documentos JSON do Engine de Entidades.</value>
+        <value xml:lang="ro">Aceasta pagina nu poate fi folosita pentru importarea exportarea documentelor JSON de Entity Engine.</value>
+        <value xml:lang="th">หน้านี้ใช้การนำเข้าข้อมูลที่มีการส่งออกเอนติตี้เอนจินเอกสาร JSON โดยใช้คำสั่ง</value>
+        <value xml:lang="vi">Giao diện bạn đang sử dụng cung cấp chức năng Nhập khẩu dữ liệu từ các Tài liệu Thực thể JSON.</value>
+        <value xml:lang="zh">本页面用于导入导出的实体引擎JSON文档。</value>
+        <value xml:lang="zh-TW">本頁面用於匯入匯出的資料實體引擎JSON檔</value>
     </property>
     <property key="WebtoolsYouMayCreateAnEntity">
         <value xml:lang="de">You may create an Entity ${entityName} by entering the values you want, and clicking Create.</value>
