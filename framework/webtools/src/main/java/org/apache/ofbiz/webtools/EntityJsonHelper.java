@@ -78,7 +78,7 @@ public class EntityJsonHelper {
                 writer.print(fieldEntry.getValue());
                 writer.print("\"");
                 if (index < fieldMap.size()) {
-                    writer.println(",");
+                    writer.print(",");
                 }
             }
         }

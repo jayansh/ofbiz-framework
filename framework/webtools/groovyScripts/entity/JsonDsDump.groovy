@@ -215,7 +215,7 @@ if (passedEntityNames) {
                     writer.print(":");
                     writer.print("[");
                     while (value = values.next()) {
-                        value.writeJsonText(writer)
+                        org.apache.ofbiz.webtools.EntityJsonHelper.writeJsonText(writer, value)
                         numberWritten++
                         curNumberWritten++
                         if (curNumberWritten % 500 == 0 || curNumberWritten == 1) {
@@ -280,7 +280,7 @@ if (passedEntityNames) {
                             //to put into it
                             if (isFirst) {
                                 writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName +".json")), "UTF-8")))
-                                writer.print('{');
+                                writer.println('{');
                                 writer.print("\"");
                                 writer.print(curEntityName);
                                 writer.print("\"");
@@ -288,7 +288,7 @@ if (passedEntityNames) {
                                 writer.println("[")
                                 isFirst = false
                             }
-                            value.writeJsonText(writer)
+                            org.apache.ofbiz.webtools.EntityJsonHelper.writeJsonText(writer, value)
                             numberWritten++
                             curValueCount++
                             if(curValueCount < values.getResultSize()) {
@@ -305,7 +305,7 @@ if (passedEntityNames) {
                                 // create a new file
                                 splitNumStr = UtilFormatOut.formatPaddedNumber((long) fileSplitNumber, 3)
                                 writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + "_" + splitNumStr +".json")), "UTF-8")))
-                                writer.print('{');
+                                writer.println('{');
                                 writer.print("\"");
                                 writer.print(curEntityName);
                                 writer.print("\"");

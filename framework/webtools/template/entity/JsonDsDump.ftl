@@ -17,9 +17,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if tobrowser?? && tobrowser>
-<h1>${uiLabelMap.WebtoolsExportFromDataSource}</h1>
+<h1>${uiLabelMap.WebtoolsExportJSONFromDataSource}</h1>
 <br />
-<p>This page can be used to export data from the database. The exported documents will have a root tag of "&lt;entity-engine-xml&gt;".</p>
+<p>This page can be used to export data from the database in JSON format.</p>
 <hr />
 <#if security.hasPermission("ENTITY_MAINT", session)>
     <a href="<@ofbizUrl>jsondsrawdump</@ofbizUrl>" class="buttontext" target="_blank">Click Here to Get Data (or save to file)</a>

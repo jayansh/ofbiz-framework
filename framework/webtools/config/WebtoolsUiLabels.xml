@@ -2225,6 +2225,19 @@
         <value xml:lang="zh">从数据源导出XML</value>
         <value xml:lang="zh-TW">從資料源匯出XML</value>
     </property>
+    <property key="WebtoolsExportJSONFromDataSource">
+        <value xml:lang="de">JSON Export aus der Datenquelle</value>
+        <value xml:lang="en">JSON Export from DataSource(s)</value>
+        <value xml:lang="fr">Export JSON depuis les sources de données</value>
+        <value xml:lang="it">Esportazione JSON da Datasource</value>
+        <value xml:lang="ja">データソースからJSONをエクスポート</value>
+        <value xml:lang="pt">Exportar de JSON DataSource(s)</value>
+        <value xml:lang="ro">Exporta Sursa Date in JSON</value>
+        <value xml:lang="th">JSON ที่มาจากแหล่งข้อมูล</value>
+        <value xml:lang="vi">Kết xuất JSON từ nguồn dữ liệu</value>
+        <value xml:lang="zh">从数据源导出JSON</value>
+        <value xml:lang="zh-TW">從資料源匯出JSON</value>
+    </property>
     <property key="WebtoolsExportable">
         <value xml:lang="de">Exportierbar</value>
         <value xml:lang="en">Exportable</value>
