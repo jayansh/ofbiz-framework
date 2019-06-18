@@ -448,6 +448,15 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="xmldsrawdump"/>
     </request-map>
+    <request-map uri="jsondsdump">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="jsondsdump"/>
+    </request-map>
+    <request-map uri="jsondsrawdump">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webtools.EntityJsonEvents" invoke="downloadJsonData" />
+        <response name="success" type="view" value="jsondsdump"/>
+    </request-map>
 
     <!-- EntitySync requests -->
     <request-map uri="EntitySyncStatus"><security https="true" auth="true"/><response name="success" type="view" value="EntitySyncStatus"/></request-map>
@@ -607,7 +616,9 @@ under the License.
 
     <view-map name="checkdb" type="screen" page="component://webtools/widget/EntityScreens.xml#CheckDb"/>
     <view-map name="xmldsdump" type="screen" page="component://webtools/widget/EntityScreens.xml#xmldsdump"/>
+    <view-map name="jsondsdump" type="screen" page="component://webtools/widget/EntityScreens.xml#jsondsdump"/>
     <view-map name="xmldsrawdump" page="template/entity/xmldsrawdump.jsp"/>
+    <view-map name="jsondsrawdump" page="template/entity/jsondsrawdump.jsp"/>
 
     <view-map name="FindUtilCache" type="screen" page="component://webtools/widget/CacheScreens.xml#FindUtilCache"/>
     <view-map name="FindUtilCacheElements" type="screen" page="component://webtools/widget/CacheScreens.xml#FindUtilCacheElements"/>

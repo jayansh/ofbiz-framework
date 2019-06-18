@@ -500,6 +500,28 @@ under the License.
         </section>
     </screen>
 
+    <screen name="jsondsdump">
+        <section>
+            <actions>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleEntityExportJson"/>
+                <set field="tabButtonItem" value="jsonDsDump"/>
+                <set field="entityFrom" from-field="parameters.entityFrom" type="Timestamp"/>
+                <set field="entityThru" from-field="parameters.entityThru" type="Timestamp"/>
+                <script location="component://webtools/groovyScripts/entity/JsonDsDump.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet>
+                            <platform-specific><html><html-template location="component://webtools/template/entity/JsonDsDump.ftl"/></html></platform-specific>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="ConnectionPoolStatus">
         <section>
             <actions>

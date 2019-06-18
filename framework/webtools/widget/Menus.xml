@@ -83,6 +83,9 @@ under the License.
         <menu-item name="xmlDsDump" title="${uiLabelMap.PageTitleEntityExport}">
             <link target="xmldsdump"/>
         </menu-item>
+        <menu-item name="jsonDsDump" title="${uiLabelMap.PageTitleEntityExportJson}">
+            <link target="jsondsdump"/>
+        </menu-item>
         <menu-item name="entityExportAll" title="${uiLabelMap.PageTitleEntityExportAll}">
             <link target="EntityExportAll"/>
         </menu-item>

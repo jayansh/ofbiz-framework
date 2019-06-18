@@ -513,6 +513,19 @@
         <value xml:lang="zh">XML数据导出全部</value>
         <value xml:lang="zh-TW">XML資料匯出全部</value>
     </property>
+    <property key="PageTitleEntityExportJson">
+        <value xml:lang="de">JSON-Daten exportieren</value>
+        <value xml:lang="en">JSON Data Export</value>
+        <value xml:lang="fr">Export de données JSON</value>
+        <value xml:lang="it">Esporta dati in JSON</value>
+        <value xml:lang="ja">JSONデータエクスポート</value>
+        <value xml:lang="pt">ExportaÃ§Ã£o de dados JSON</value>
+        <value xml:lang="ro">Exporta Date in JSON</value>
+        <value xml:lang="th">ส่งออกข้อมูล json</value>
+        <value xml:lang="vi">Kết xuất dữ liệu JSON</value>
+        <value xml:lang="zh">JSON数据导出</value>
+        <value xml:lang="zh-TW">JSON資料匯出</value>
+    </property>
     <property key="PageTitleEntityImport">
         <value xml:lang="de">XML-Daten importieren</value>
         <value xml:lang="en">XML Data Import</value>
