@@ -286,19 +286,20 @@ if (passedEntityNames) {
                             //to put into it
                             if (isFirst) {
                                 writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName +".json")), "UTF-8")))
-                                writer.println('{');
-                                writer.print("\"");
+                                writer.println('[');
+                                writer.print('{');
+                                writer.print('"');
                                 writer.print(curEntityName);
-                                writer.print("\"");
-                                writer.print(":");
-                                writer.println("[")
+                                writer.print('"');
+                                writer.print(':');
+                                writer.print('[')
                                 isFirst = false
                             }
                             org.apache.ofbiz.webtools.EntityJsonHelper.writeJsonText(writer, value)
                             numberWritten++
                             curValueCount++
                             if(curValueCount < values.getResultSize()) {
-                                writer.print(",")
+                                writer.println(',')
                             }
 
                             // split into small files
@@ -306,17 +307,18 @@ if (passedEntityNames) {
                                 fileSplitNumber++
                                 // close the file
                                 writer.println("]}")
+                                writer.print("]")
                                 writer.close()
 
                                 // create a new file
                                 splitNumStr = UtilFormatOut.formatPaddedNumber((long) fileSplitNumber, 3)
                                 writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + "_" + splitNumStr +".json")), "UTF-8")))
-                                writer.println('{');
+                                writer.print('{');
                                 writer.print('"');
                                 writer.print(curEntityName);
                                 writer.print('"');
                                 writer.print(':');
-                                writer.println('[');
+                                writer.print('[');
                             }
 
                             if (numberWritten % 500 == 0 || numberWritten == 1) {
@@ -326,6 +328,7 @@ if (passedEntityNames) {
                         }
                         if (writer) {
                             writer.println("]}")
+                            writer.print("]")
                             writer.close()
                             String thisResult = "[$fileNumber] [$numberWritten] $curEntityName wrote $numberWritten records"
                             Debug.log(thisResult)
