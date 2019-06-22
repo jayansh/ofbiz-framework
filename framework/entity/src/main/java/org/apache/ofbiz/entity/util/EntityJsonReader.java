@@ -178,7 +178,7 @@ public class EntityJsonReader {
                     action(jsonObject.get(key), "delete");
                 } else {
                     /**TODO replace this block with createUpdate method*/
-                    Object value = jsonObject.get(key);
+                    /*Object value = jsonObject.get(key);
                     if (value != null && !value.equals("null") && value instanceof JSONObject) {
                         flatJson.put(_prefix + key, this.iterateJSONObject((JSONObject) value));
                         ModelEntity modelEntity = this.delegator.getModelEntity(key);
@@ -187,7 +187,8 @@ public class EntityJsonReader {
                         if (UtilValidate.isNotEmpty(entityVal)) {
                             this.valuesToCreate.add(entityVal);
                         }
-                    }
+                    }*/
+                    createUpdate(jsonObject);
                 }
             }
         }

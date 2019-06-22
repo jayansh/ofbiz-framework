@@ -6017,6 +6017,43 @@
         <value xml:lang="zh">本页面用于从数据库导出数据 导出的文档会有一个"&lt;entity-engine-xml&gt;"的根标签在为这个应用配置的代表中，会对每个实体有一个文件。</value>
         <value xml:lang="zh-TW">本頁面用於從資料庫匯出資料 匯出的檔會有一個"&lt;entity-engine-xml&gt;"的根標簽在為這個應用配置的代表中,會對每個資料實體有一個檔.&lt;/entity-engine-xml&gt;</value>
     </property>
+    <property key="WebtoolsWroteNRecordsToJSONFile">
+        <value xml:lang="de">Es wurden ${numberWritten} Datensätze in die Datei ${parameters.filename} geschrieben.</value>
+        <value xml:lang="en">Wrote ${numberWritten} records to JSON file ${parameters.filename}.</value>
+        <value xml:lang="fr">Ecrire ${numberWritten} les enregistrements dans le fichier JSON ${parameters.filename}.</value>
+        <value xml:lang="it">Scritti ${numberWritten} records su file JSON ${parameters.filename}.</value>
+        <value xml:lang="ja">${numberWritten} レコードを、JSONファイル ${parameters.filename} に書き出しました。</value>
+        <value xml:lang="pt">Escreveu  ${numberWritten} registros para o arquivo JSON ${parameters.filename}.</value>
+        <value xml:lang="th">เขียน ${numberWritten} บันทึกมูล XML ไฟล์ ${parameters.filename}.</value>
+        <value xml:lang="vi">Đã ghi ${numberWritten} bản ghi tới tập tin JSON ${parameters.filename}.</value>
+        <value xml:lang="zh">把${numberWritten}个记录写到JSON文件${parameters.filename}。</value>
+        <value xml:lang="zh-TW">把${numberWritten}個記錄寫到JSON檔${parameters.filename}.</value>
+    </property>
+    <property key="WebtoolsWroteJSONForAllDataIn">
+        <value xml:lang="de">Es wurde JSON für alle Daten in ${numberofEntities} Entitäten geschrieben.</value>
+        <value xml:lang="en">Wrote JSON for all data in ${numberOfEntities} entities.</value>
+        <value xml:lang="fr">Ecrire JSON pour toute les donnée inclues ${numberOfEntities} Entités.</value>
+        <value xml:lang="it">Scritti JSON per tutti i dati in ${numberOfEntities} entità.</value>
+        <value xml:lang="ja">${numberOfEntities} エンティティのすべてのデータをXMLファイルに書き出しました。</value>
+        <value xml:lang="pt">Escreveu JSON para todos os dados em ${numberOfEntities} entidades.</value>
+        <value xml:lang="th">เขียน JSON สำหรับข้อมูลทั้งหมดใน ${numberOfEntities} entities.</value>
+        <value xml:lang="vi">Đã ghi JSON cho tất cả dữ liệu trong ${numberOfEntities} Thực thể.</value>
+        <value xml:lang="zh">为${numberOfEntities}个实体中的全部数据写到JSON。</value>
+        <value xml:lang="zh-TW">為${numberOfEntities}個資料實體中的全部資料寫到JSON.</value>
+    </property>
+    <property key="WebtoolsJSONExportInfo">
+        <value xml:lang="de">Hier Seite können Daten aus der Datenbank exportiert werden. Es wird für jede Entität in dem für diese webapp konfigurierten Delegator eine eigene Datei erstellt.</value>
+        <value xml:lang="en">This page can be used to export data from the database. There will be one file for each Entity in the configured delegator for this webapp.</value>
+        <value xml:lang="fr">Cette page peut être utilisée pour exporter des données depuis la base. Il y aura un dossier pour chaque entité dans le delegator configuré pour cette webapp.</value>
+        <value xml:lang="it">Questa pagina può essere usata per esportare i dati dal database. C'è un file per ogni Entità nel delegator configurato per questa applicazione web.</value>
+        <value xml:lang="ja">このページでデータベースからデータをエクスポートすることができます。Webアプリケーションに設定されたデリゲータの中のそれぞれのエンティティに対して１つのファイルが作成されます。</value>
+        <value xml:lang="pt">Esta pÃ¡gina pode ser utilizado para exportar dados do banco de dados. HaverÃ¡ um arquivo para cada entidade do delegator configurado para essa webapp.</value>
+        <value xml:lang="ro">Aceasta pagina poate fi folosita pentru exportarea datelor din  database. Exista un file pentru orice Entitate din delegatorul configurat pentru aceasta aplicatie web.</value>
+        <value xml:lang="th">หน้านี้ใช้การส่งออกข้อมูลจากฐานข้อมูลการส่ มี 1 ไฟล์สำหรับตัวอย่าง Entity ในการสร้างตัวแทนสำหรับโปรแกรมประยุกต์นี้</value>
+        <value xml:lang="vi">Giao diện bạn đang sử dụng cung cấp chức năng Kết xuất dữ liệu từ Cơ sở dữ liệu.( có 01 Tập tin với mỗi Thực thể của Ứng dụng này)</value>
+        <value xml:lang="zh">本页面用于从数据库导出数据 的根标签在为这个应用配置的代表中，会对每个实体有一个文件。</value>
+        <value xml:lang="zh-TW">本頁面用於從資料庫匯出資料 的根標簽在為這個應用配置的代表中,會對每個資料實體有一個檔.</value>
+    </property>
     <property key="WebtoolsXMLImportInfo">
         <value xml:lang="de">Hier können zuvor exportierte Entitäten XML Dateien wieder in die Datenbank importiert werden. Diese Dokumente haben eine XML-root-tag "&lt;entity-engine-xml&gt;".</value>
         <value xml:lang="en">This page can be used to import exported Entity Engine XML documents. These documents all have a root tag of "&lt;entity-engine-xml&gt;".</value>

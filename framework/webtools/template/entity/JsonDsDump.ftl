@@ -36,14 +36,14 @@ under the License.
 </#macro>
 
 <div class="page-title"><span>${uiLabelMap.PageTitleEntityExportJson}</span></div>
-<p>${uiLabelMap.WebtoolsXMLExportInfo}</p>
+<p>${uiLabelMap.WebtoolsJSONExportInfo}</p>
 <hr />
 
 <#if security.hasPermission("ENTITY_MAINT", session)>
   <h2>${uiLabelMap.WebtoolsResults}:</h2>
   <#if parameters.filename?has_content && (numberOfEntities?number > 0)>
-    <p>${uiLabelMap.WebtoolsWroteXMLForAllDataIn}</p>
-    <p>${uiLabelMap.WebtoolsWroteNRecordsToXMLFile}</p>
+    <p>${uiLabelMap.WebtoolsWroteJSONForAllDataIn}</p>
+    <p>${uiLabelMap.WebtoolsWroteNRecordsToJSONFile}</p>
   <#elseif parameters.outpath?has_content && (numberOfEntities?number > 0)>
     <#list results as result>
       <p>${result}</p>

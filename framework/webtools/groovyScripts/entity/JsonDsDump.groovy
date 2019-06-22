@@ -184,11 +184,12 @@ if (passedEntityNames) {
         numberOfEntities = passedEntityNames?.size() ?: 0
         context.numberOfEntities = numberOfEntities
         numberWritten = 0
+        currentIndexEntity = 0
 
         // single file
         if (filename && numberOfEntities) {
             writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "UTF-8")))
-            writer.println("[")
+            writer.println('[')
 
             passedEntityNames.each { curEntityName ->
                 if (entityFrom) {
@@ -197,7 +198,7 @@ if (passedEntityNames) {
                         return
                     }
                 }
-
+                currentIndexEntity++;
                 beganTransaction = TransactionUtil.begin(3600)
                 try {
                     me = reader.getModelEntity(curEntityName)
@@ -209,11 +210,11 @@ if (passedEntityNames) {
 
                     curNumberWritten = 0
                     writer.print('{');
-                    writer.print("\"");
+                    writer.print('"');
                     writer.print(curEntityName);
-                    writer.print("\"");
-                    writer.print(":");
-                    writer.print("[");
+                    writer.print('"');
+                    writer.print(':');
+                    writer.print('[');
                     while (value = values.next()) {
                         org.apache.ofbiz.webtools.EntityJsonHelper.writeJsonText(writer, value)
                         numberWritten++
@@ -230,12 +231,17 @@ if (passedEntityNames) {
                     Debug.log("Wrote [$curNumberWritten] from entity : $curEntityName")
                     TransactionUtil.commit(beganTransaction)
                 } catch (Exception e) {
-                    errMsg = "Error reading data for XML export:"
+                    errMsg = "Error reading data for JSON export:"
                     Debug.logError(e, errMsg, "JSP")
                     TransactionUtil.rollback(beganTransaction, errMsg, e)
                 }
+                if(currentIndexEntity < numberOfEntities) {
+                    writer.println(',');
+                } else {
+                    writer.println('');
+                }
             }
-            writer.println("]")
+            writer.print(']')
             writer.close()
             Debug.log("Total records written from all entities: $numberWritten")
             context.numberWritten = numberWritten
@@ -306,11 +312,11 @@ if (passedEntityNames) {
                                 splitNumStr = UtilFormatOut.formatPaddedNumber((long) fileSplitNumber, 3)
                                 writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + "_" + splitNumStr +".json")), "UTF-8")))
                                 writer.println('{');
-                                writer.print("\"");
+                                writer.print('"');
                                 writer.print(curEntityName);
-                                writer.print("\"");
-                                writer.print(":");
-                                writer.println("[")
+                                writer.print('"');
+                                writer.print(':');
+                                writer.println('[');
                             }
 
                             if (numberWritten % 500 == 0 || numberWritten == 1) {
