@@ -188,6 +188,9 @@ if (passedEntityNames) {
 
         // single file
         if (filename && numberOfEntities) {
+            if (outpath && !(filename.contains("/") && filename.contains("\\"))) {
+                filename = outpath + File.separator + filename;
+            }
             writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "UTF-8")))
             writer.println('[')
 
@@ -251,7 +254,7 @@ if (passedEntityNames) {
         results = []
         fileNumber = 1
         context.results = results
-        if (outpath) {
+        if (outpath && !filename) {
             outdir = new File(outpath)
             if (!outdir.exists()) {
                 outdir.mkdir()
