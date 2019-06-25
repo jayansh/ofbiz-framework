@@ -116,6 +116,15 @@
         <value xml:lang="zh">解析实体XML文件时出错：${errorString}</value>
         <value xml:lang="zh-TW">解析資料實體XML檔時出錯:${errorString}</value>
     </property>
+    <property key="EntityImportJsonParsingError">
+        <value xml:lang="en">ERROR parsing Entity Json file: ${errorString}</value>
+        <value xml:lang="fr">ERREUR dans l'analyse de l'JSON : ${errorString}</value>
+        <value xml:lang="it">ERRORE di parsing file entità JSON: ${errorString}</value>
+        <value xml:lang="ja">エンティティJSONファイルパース時にエラー: ${errorString}</value>
+        <value xml:lang="vi">LỖI khi phân tích tập tin JSON Thực thể: ${errorString}</value>
+        <value xml:lang="zh">解析实体JSON文件时出错：${errorString}</value>
+        <value xml:lang="zh-TW">解析資料實體JSON檔時出錯:${errorString}</value>
+    </property>
     <property key="EntityImportPassedFile">
         <value xml:lang="en">Pass ${passes} complete</value>
         <value xml:lang="fr">Passe ${passes} complete</value>
@@ -526,6 +535,19 @@
         <value xml:lang="zh">JSON数据导出</value>
         <value xml:lang="zh-TW">JSON資料匯出</value>
     </property>
+    <property key="PageTitleEntityExportAllJson">
+        <value xml:lang="de">Alle JSON-Daten exportieren</value>
+        <value xml:lang="en">JSON Data Export All</value>
+        <value xml:lang="fr">Exporter toutes les données JSON</value>
+        <value xml:lang="it">Esporta tutti i dati in JSON</value>
+        <value xml:lang="ja">JSONデータをすべてエクスポート</value>
+        <value xml:lang="pt">ExportaÃ§Ã£o de todos os dados JSON</value>
+        <value xml:lang="ro">Exporta Toate Datele in JSON</value>
+        <value xml:lang="th">ส่งออกข้อมูล JSON ทั้งหมด</value>
+        <value xml:lang="vi">Kết xuất tất cả dữ liệu JSON</value>
+        <value xml:lang="zh">JSON数据导出全部</value>
+        <value xml:lang="zh-TW">JSON資料匯出全部</value>
+    </property>
     <property key="PageTitleEntityImport">
         <value xml:lang="de">XML-Daten importieren</value>
         <value xml:lang="en">XML Data Import</value>
@@ -564,6 +586,19 @@
         <value xml:lang="vi">Nhập khẩu dữ liệu JSON</value>
         <value xml:lang="zh">JSON数据导入</value>
         <value xml:lang="zh-TW">JSON資料匯入</value>
+    </property>
+    <property key="PageTitleEntityImportDirJson">
+        <value xml:lang="de">JSON Datenimport aus Verzeichnis</value>
+        <value xml:lang="en">JSON Data Import Dir</value>
+        <value xml:lang="fr">Import de données JSON depuis un répertoire</value>
+        <value xml:lang="it">Importa dati JSON in directory</value>
+        <value xml:lang="ja">JSONデータインポートディレクトリ</value>
+        <value xml:lang="pt">Importar dados JSON em diretÃ³rio</value>
+        <value xml:lang="ro">Importa Datele din JSON in Directory</value>
+        <value xml:lang="th">นำเข้าข้อมูล json ใน Directory</value>
+        <value xml:lang="vi">Thư mục nhập khẩu JSON</value>
+        <value xml:lang="zh">JSON数据导入目录 </value>
+        <value xml:lang="zh-TW">JSON資料匯入目錄 </value>
     </property>
     <property key="PageTitleEntityImportReaders">
         <value xml:lang="de">Leser für XML Datenimport</value>
@@ -2034,6 +2069,18 @@
         <value xml:lang="th">เครื่องมือ Entity XML </value>
         <value xml:lang="vi">Công cụ XML Thực thể</value>
         <value xml:lang="zh">实体XML工具</value>
+        <value xml:lang="zh-TW">資料實體XML工具</value>
+    </property>
+    <property key="WebtoolsEntityJSONTools">
+        <value xml:lang="de">Entität JSON Tools</value>
+        <value xml:lang="en">Entity JSON Tools</value>
+        <value xml:lang="fr">Outils JSON d'entité</value>
+        <value xml:lang="it">Strumenti JSON per entità</value>
+        <value xml:lang="ja">エンティティJSONツール</value>
+        <value xml:lang="ro">Instrumente pentru Entitatea JSON</value>
+        <value xml:lang="th">เครื่องมือ Entity JSON </value>
+        <value xml:lang="vi">Công cụ JSON Thực thể</value>
+        <value xml:lang="zh">实体JSON工具</value>
         <value xml:lang="zh-TW">資料實體XML工具</value>
     </property>
     <property key="WebtoolsEnvName">

@@ -27,6 +27,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.model.ModelField;
 
 import java.io.PrintWriter;
+import java.text.StringCharacterIterator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -34,8 +35,10 @@ import java.util.Map;
 public class EntityJsonHelper {
 
     public static final String module = EntityJsonHelper.class.getName();
-    /** Writes JSON text for each field of the entity
-     *@param writer A PrintWriter to write to
+
+    /**
+     * Writes JSON text for each field of the entity
+     * @param writer A PrintWriter to write to
      */
     public static void writeJsonText(PrintWriter writer, GenericValue value) {
         Map<String, String> fieldMap = new HashMap<>();
@@ -61,6 +64,39 @@ public class EntityJsonHelper {
             } else {
                 String valueStr = value.getString(name);
                 if (UtilValidate.isNotEmpty(valueStr)) {
+                    // check each character, if line-feed or carriage-return is found set needsCdata to true; also look for invalid characters
+                    /*for (int i = 0; i < valueStrBld.length(); i++) {
+                        char curChar = valueStrBld.charAt(i);
+
+                        switch (curChar) {
+                            case '\\':
+                                valueStrBld.replace(i, i + 1, "\\\\");
+                                break;
+                            case '/':
+                                valueStrBld.replace(i, i + 1, "\\/");
+                                break;
+                            case 0x8: //backspace, \b
+                                valueStrBld.replace(i, i + 1, "\\b");
+                                break;
+                            case 0xC: // form feed, \f
+                                valueStrBld.replace(i, i + 1, "\\f");
+                                break;
+                            case 0xA: // newline, \n
+                                valueStrBld.replace(i, i + 1, "\\n");
+                                break;
+                            case 0xD: // carriage return, \r
+                                valueStrBld.replace(i, i + 1, "\\r");
+                                break;
+                            case 0x9:// tab, \t
+                                valueStrBld.replace(i, i + 1, "\\t");
+                                break;
+                            case '"':
+                                valueStrBld.replace(i, i + 1, "\"");
+                                break;
+                        }
+
+                }*/
+                    valueStr = normalizeJSON(valueStr);
                     fieldMap.put(name, valueStr);
                 }
             }
@@ -85,9 +121,9 @@ public class EntityJsonHelper {
         writer.print("}");
     }
 
-    /** Writes JSON text for each field of the entity
-     * @param textBuilder A StringBuilder to write to
-     * entity to be writter
+    /**
+     * Writes JSON text for each field of the entity
+     * @param textBuilder A StringBuilder to write to entity to be writter
      */
     public static void writeJsonText(StringBuilder textBuilder, GenericValue value) {
         Map<String, String> fieldMap = new HashMap<>();
@@ -113,6 +149,7 @@ public class EntityJsonHelper {
             } else {
                 String valueStr = value.getString(name);
                 if (UtilValidate.isNotEmpty(valueStr)) {
+                    valueStr = normalizeJSON(valueStr);
                     fieldMap.put(name, valueStr);
                 }
             }
@@ -135,5 +172,72 @@ public class EntityJsonHelper {
             }
         }
         textBuilder.append("}");
+    }
+
+    public static String normalizeJSON(String aText) {
+        if (UtilValidate.isEmpty(aText)) {
+            return aText;
+        }
+        //StringBuilder result = new StringBuilder();
+        String result = new String();
+        StringCharacterIterator iterator = new StringCharacterIterator(aText);
+        char character = iterator.current();
+        while (character != StringCharacterIterator.DONE) {
+            /*switch (character) {
+                case '\\':
+                case '/':
+                case 0x8: //backspace, \b
+                case 0xC: // form feed, \f
+                case 0xA: // newline, \n
+                case 0xD: // carriage return, \r
+                case 0x9:// tab, \t
+                case '"':
+                    result.append("\\");
+                default:
+                    result.append(character);
+                    character = iterator.next();
+                    break;
+            }*/
+            switch (character) {
+                case '\\':
+                    result = result + "\\\\";
+                    character = iterator.next();
+                    break;
+                case '/':
+                    result = result + "\\/";
+                    character = iterator.next();
+                    break;
+                case 0x8: //backspace, \b
+                    result = result + "\\\\b";
+                    character = iterator.next();
+                    break;
+                case 0xC: // form feed, \f
+                    result = result + "\\\\f";
+                    character = iterator.next();
+                    break;
+                case 0xA: // newline, \n
+                    result = result + "\\\\n";
+                    character = iterator.next();
+                    break;
+                case 0xD: // carriage return, \r
+                    result = result + "\\\\n";
+                    character = iterator.next();
+                    break;
+                case 0x9:// tab, \t
+                    result = result + "\\\\t";
+                    character = iterator.next();
+                    break;
+                case '"':
+                    result = result + "\\\"";
+                    character = iterator.next();
+                    break;
+                default:
+                    result = result + character;
+                    character = iterator.next();
+                    break;
+            }
+
+        }
+        return result.toString();
     }
 }

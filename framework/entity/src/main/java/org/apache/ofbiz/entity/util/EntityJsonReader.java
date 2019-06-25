@@ -157,6 +157,7 @@ public class EntityJsonReader {
     private long convertJsonAndWriteValues(String jsonString) throws IOException {
         this.numberRead = 0L;
         String _prefix = "";
+        jsonString = jsonString.replace("\\", "\\\\");
         JSONArray jsonArray = new JSONArray(jsonString);
         int length = jsonArray.length();
 

@@ -222,7 +222,7 @@ if (passedEntityNames) {
                         if (curNumberWritten % 500 == 0 || curNumberWritten == 1) {
                             Debug.log("Records written [$curEntityName]: $curNumberWritten Total: $numberWritten")
                         }
-                        if(curNumberWritten < values.getResultSize()) {
+                        if(curNumberWritten < values.getResultsSizeAfterPartialList()) {
                             writer.print(",");
                         }
                     }
@@ -298,7 +298,7 @@ if (passedEntityNames) {
                             org.apache.ofbiz.webtools.EntityJsonHelper.writeJsonText(writer, value)
                             numberWritten++
                             curValueCount++
-                            if(curValueCount < values.getResultSize()) {
+                            if(curValueCount < values.getResultsSizeAfterPartialList()) {
                                 writer.println(',')
                             }
 
@@ -313,6 +313,7 @@ if (passedEntityNames) {
                                 // create a new file
                                 splitNumStr = UtilFormatOut.formatPaddedNumber((long) fileSplitNumber, 3)
                                 writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + "_" + splitNumStr +".json")), "UTF-8")))
+                                writer.println('[');
                                 writer.print('{');
                                 writer.print('"');
                                 writer.print(curEntityName);

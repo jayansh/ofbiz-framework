@@ -83,9 +83,6 @@ under the License.
         <menu-item name="xmlDsDump" title="${uiLabelMap.PageTitleEntityExport}">
             <link target="xmldsdump"/>
         </menu-item>
-        <menu-item name="jsonDsDump" title="${uiLabelMap.PageTitleEntityExportJson}">
-            <link target="jsondsdump"/>
-        </menu-item>
         <menu-item name="entityExportAll" title="${uiLabelMap.PageTitleEntityExportAll}">
             <link target="EntityExportAll"/>
         </menu-item>
@@ -95,14 +92,23 @@ under the License.
         <menu-item name="entityImport" title="${uiLabelMap.PageTitleEntityImport}">
             <link target="EntityImport"/>
         </menu-item>
-        <menu-item name="entityImportJson" title="${uiLabelMap.PageTitleEntityImportJson}">
-            <link target="EntityImportJson"/>
-        </menu-item>
         <menu-item name="entityImportDir" title="${uiLabelMap.PageTitleEntityImportDir}">
             <link target="EntityImportDir"/>
         </menu-item>
         <menu-item name="entityImportReaders" title="${uiLabelMap.PageTitleEntityImportReaders}">
             <link target="EntityImportReaders"/>
+        </menu-item>
+        <menu-item name="jsonDsDump" title="${uiLabelMap.PageTitleEntityExportJson}">
+            <link target="jsondsdump"/>
+        </menu-item>
+        <menu-item name="entityExportAllJson" title="${uiLabelMap.PageTitleEntityExportAllJson}">
+            <link target="EntityExportAllJson"/>
+        </menu-item>
+        <menu-item name="entityImportJson" title="${uiLabelMap.PageTitleEntityImportJson}">
+            <link target="EntityImportJson"/>
+        </menu-item>
+        <menu-item name="entityImportDirJson" title="${uiLabelMap.PageTitleEntityImportDirJson}">
+            <link target="EntityImportDirJson"/>
         </menu-item>
     </menu>
     

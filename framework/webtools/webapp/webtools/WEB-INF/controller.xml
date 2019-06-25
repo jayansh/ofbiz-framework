@@ -433,6 +433,20 @@ under the License.
         <response name="success" type="view" value="EntityImportJson"/>
         <response name="error" type="view" value="EntityImportJson"/>
     </request-map>
+    <request-map uri="EntityExportAllJson"><security https="true" auth="true"/><response name="success" type="view" value="EntityExportAllJson"/><response name="error" type="view" value="EntityExportAllJson"/></request-map>
+    <request-map uri="entityExportAllJson">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="entityExportAllJson"/>
+        <response name="success" type="view" value="EntityExportAllJson"/>
+        <response name="error" type="view" value="EntityExportAllJson"/>
+    </request-map>
+    <request-map uri="EntityImportDirJson"><security https="true" auth="true"/><response name="success" type="view" value="EntityImportDirJson"/></request-map>
+    <request-map uri="entityImportDirJson">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="entityImportDirJson"/>
+        <response name="success" type="view" value="EntityImportDir"/>
+        <response name="error" type="view" value="EntityImportDir"/>
+    </request-map>
     <request-map uri="EntityImportReaders"><security https="true" auth="true"/><response name="success" type="view" value="EntityImportReaders"/></request-map>
     <request-map uri="entityImportReaders">
         <security https="true" auth="true"/>
@@ -657,8 +671,10 @@ under the License.
     <view-map name="EntitySQLProcessor" type="screen" page="component://webtools/widget/EntityScreens.xml#EntitySQLProcessor"/>
     <view-map name="ConnectionPoolStatus" type="screen" page="component://webtools/widget/EntityScreens.xml#ConnectionPoolStatus"/>
     <view-map name="EntityExportAll" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityExportAll"/>
+    <view-map name="EntityExportAllJson" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityExportAllJson"/>
     <view-map name="ProgramExport" type="screen" page="component://webtools/widget/EntityScreens.xml#ProgramExport"/>
     <view-map name="EntityImportDir" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportDir"/>
+    <view-map name="EntityImportDirJson" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportDirJson"/>
     <view-map name="EntityImport" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImport"/>
     <view-map name="EntityImportJson" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportJson"/>
     <view-map name="EntityImportReaders" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportReaders"/>
