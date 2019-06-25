@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,16 +15,26 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-package org.apache.ofbiz.base.util.test;
+ */
+package org.apache.ofbiz.base.util;
 
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
+import static org.junit.Assert.fail;
 
-public class UtilHttpTests extends GenericTestCaseBase {
-    public UtilHttpTests(String name) {
-        super(name);
-    }
+import java.util.List;
+import java.util.Locale;
 
-    public void testGetParameterMap() throws Exception {
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.junit.Test;
+
+public class UtilMiscTests {
+
+    @Test
+    public void testLocales() throws Exception {
+        List<Locale> availableLocales = UtilMisc.availableLocales();
+        for (Locale availableLocale : availableLocales) {
+            if (availableLocale.getDisplayName().isEmpty()) {
+                fail("Locale.getDisplayName() is empty");
+            }
+        }
     }
 }

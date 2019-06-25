@@ -168,9 +168,9 @@ dependencies {
     implementation 'com.sun.syndication:com.springsource.com.sun.syndication:0.9.0'
     implementation 'com.thoughtworks.xstream:xstream:1.4.11.1'
     implementation 'commons-cli:commons-cli:1.4'
+    implementation 'commons-fileupload:commons-fileupload:1.4'
     implementation 'commons-net:commons-net:3.6'
     implementation 'commons-validator:commons-validator:1.6'
-    implementation 'commons-fileupload:commons-fileupload:1.4'
     implementation 'de.odysseus.juel:juel-impl:2.2.7'
     implementation 'javax.el:javax.el-api:3.0.1-b06'
     implementation 'javax.servlet:javax.servlet-api:4.0.1'
@@ -182,6 +182,7 @@ dependencies {
     implementation 'org.apache.commons:commons-collections4:4.3'
     implementation 'org.apache.commons:commons-csv:1.6'
     implementation 'org.apache.commons:commons-dbcp2:2.6.0' // When changing for 2.6.1+ we can remove ManagedDataSource::close, see DBCP-539
+    implementation 'org.apache.commons:commons-text:1.6'
     implementation 'org.apache.geronimo.components:geronimo-transaction:3.1.4'
     implementation 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
     implementation 'org.apache.httpcomponents:httpclient-cache:4.5.8'
@@ -191,10 +192,10 @@ dependencies {
     implementation 'org.apache.sshd:sshd-core:1.7.0'
     implementation 'org.apache.tika:tika-core:1.20'
     implementation 'org.apache.tika:tika-parsers:1.20'
-    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.19'
-    implementation 'org.apache.tomcat:tomcat-catalina:9.0.19'
-    implementation 'org.apache.tomcat:tomcat-jasper:9.0.19'
-    implementation 'org.apache.tomcat:tomcat-tribes:9.0.19'
+    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.21'
+    implementation 'org.apache.tomcat:tomcat-catalina:9.0.21'
+    implementation 'org.apache.tomcat:tomcat-jasper:9.0.21'
+    implementation 'org.apache.tomcat:tomcat-tribes:9.0.21'
     implementation 'org.apache.xmlgraphics:fop:2.3'
     implementation 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
     implementation 'org.apache.xmlrpc:xmlrpc-server:3.1.3'
@@ -329,14 +330,14 @@ eclipse.classpath.file.whenMerged { classpath ->
 
         classpath.entries.removeAll { entry ->
             // remove any "src" entries in .classpath of the form /componentName
-            entry.kind == 'src' &&
+            entry.kind == 'src' && !(entry.path ==~ 'framework/base/config' || entry.path ==~ 'framework/base/dtd') && (
             entry.path ==~ '.*/+(' + componentName.tokenize(fileSep).last() + ')$' ||
             entry.path ==~ /(\/+framework)$/ ||
             entry.path ==~ /(\/+applications)$/ ||
             entry.path ==~ /(\/+plugins)$/ ||
             entry.path ==~ /(\/+themes)$/ ||
             entry.path ==~ eclipseEntry + '/config' ||
-            entry.path ==~ eclipseEntry + '/dtd'
+            entry.path ==~ eclipseEntry + '/dtd')
         }
     }
 }
@@ -709,9 +710,8 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
         def pluginDir = "${pluginsDir}/${pluginId}"
 
         ['config', 'data/helpdata', 'dtd', 'documents', 'entitydef', 'lib', 'patches/test', 'patches/qa',
-                'patches/production', 'script', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
-                'widget', "webapp/${webappName}/error", "webapp/${webappName}/WEB-INF",
-                "webapp/${webappName}/WEB-INF/actions"].each {
+                'patches/production', 'groovyScripts', 'minilang', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
+                'widget', "webapp/${webappName}/error", "webapp/${webappName}/WEB-INF"].each {
             mkdir pluginDir+'/'+it
         }
 

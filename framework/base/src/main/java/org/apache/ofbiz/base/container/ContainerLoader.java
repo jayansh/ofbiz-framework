@@ -21,6 +21,7 @@ package org.apache.ofbiz.base.container;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,7 +50,7 @@ public class ContainerLoader {
 
     public static final String module = ContainerLoader.class.getName();
 
-    private final List<Container> loadedContainers = new LinkedList<>();
+    private final Deque<Container> loadedContainers = new LinkedList<>();
 
     /**
      * Starts the containers.
@@ -81,7 +82,8 @@ public class ContainerLoader {
         startLoadedContainers();
     }
 
-    private Collection<ContainerConfig.Configuration> retrieveOfbizContainers(String configFile) throws StartupException {
+    private static Collection<ContainerConfig.Configuration> retrieveOfbizContainers(String configFile)
+            throws StartupException {
         try {
             return ContainerConfig.getConfigurations(configFile);
         } catch (ContainerException e) {
@@ -89,17 +91,26 @@ public class ContainerLoader {
         }
     }
 
-    private List<ContainerConfig.Configuration> filterContainersHavingMatchingLoaders(List<String> loaders,
+    private static List<ContainerConfig.Configuration> filterContainersHavingMatchingLoaders(List<String> loaders,
             Collection<ContainerConfig.Configuration> containerConfigs) {
         return containerConfigs.stream()
-                .filter(containerCfg ->
-                    UtilValidate.isEmpty(containerCfg.loaders) &&
-                    UtilValidate.isEmpty(loaders) ||
-                    containerCfg.loaders.stream().anyMatch(loader -> loaders.contains(loader)))
+                .filter(cfg -> intersects(cfg.loaders, loaders))
                 .collect(Collectors.toList());
     }
 
-    private List<Container> loadContainersFromConfigurations(List<ContainerConfig.Configuration> containerConfigs,
+    /**
+     * Checks if two collections have an intersection or are both empty.
+     *
+     * @param a the first collection which can be {@code null}
+     * @param b the second collection which can be {@code null}
+     * @return {@code true} if {@code a} and {@code b} have an intersection or are both empty.
+     */
+    private static boolean intersects(Collection<?> a, Collection<?> b) {
+        return UtilValidate.isEmpty(a) && UtilValidate.isEmpty(b)
+                || !Collections.disjoint(a, b);
+    }
+
+    private static List<Container> loadContainersFromConfigurations(List<ContainerConfig.Configuration> containerConfigs,
             Config config, List<StartupCommand> ofbizCommands) throws StartupException {
 
         List<Container> loadContainers = new ArrayList<>();
@@ -112,8 +123,7 @@ public class ContainerLoader {
         return loadContainers;
     }
 
-    private Container loadContainer(String configFile,
-            ContainerConfig.Configuration containerCfg,
+    private static Container loadContainer(String configFile, ContainerConfig.Configuration containerCfg,
             List<StartupCommand> ofbizCommands) throws StartupException {
         // load the container class
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -166,11 +176,7 @@ public class ContainerLoader {
      */
     public synchronized void unload() {
         Debug.logInfo("Shutting down containers", module);
-
-        List<Container> reversedContainerList = new ArrayList<>(loadedContainers);
-        Collections.reverse(reversedContainerList);
-
-        for(Container loadedContainer : reversedContainerList) {
+        loadedContainers.descendingIterator().forEachRemaining(loadedContainer -> {
             Debug.logInfo("Stopping container " + loadedContainer.getName(), module);
             try {
                 loadedContainer.stop();
@@ -178,6 +184,6 @@ public class ContainerLoader {
                 Debug.logError(e, module);
             }
             Debug.logInfo("Stopped container " + loadedContainer.getName(), module);
-        }
+        });
     }
 }
