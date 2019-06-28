@@ -1,19 +1,8 @@
 package org.apache.ofbiz.entity.util;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ofbiz.base.lang.JSON;
 import org.apache.ofbiz.base.util.Base64;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -27,6 +16,11 @@ import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.*;
 
 public class EntityJsonReader {
     public static final String module = EntitySaxReader.class.getName();
@@ -157,7 +151,6 @@ public class EntityJsonReader {
     private long convertJsonAndWriteValues(String jsonString) throws IOException {
         this.numberRead = 0L;
         String _prefix = "";
-        jsonString = jsonString.replace("\\", "\\\\");
         JSONArray jsonArray = new JSONArray(jsonString);
         int length = jsonArray.length();
 
@@ -226,7 +219,12 @@ public class EntityJsonReader {
         while (iterator.hasNext()) {
             String keyStr = (String) iterator.next();
             Object keyvalue = jsonObj.get(keyStr);
-            mapObj.put(keyStr, keyvalue);
+            if (keyvalue instanceof String) {
+                String keyValStr = org.apache.commons.text.StringEscapeUtils.unescapeJson((String) keyvalue);
+                mapObj.put(keyStr, keyValStr);
+            } else {
+                mapObj.put(keyStr, keyvalue);
+            }
         }
         return mapObj;
     }

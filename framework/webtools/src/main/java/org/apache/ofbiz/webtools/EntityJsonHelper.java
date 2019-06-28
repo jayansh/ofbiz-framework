@@ -22,12 +22,10 @@ import org.apache.ofbiz.base.util.Base64;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.model.ModelField;
 
 import java.io.PrintWriter;
-import java.text.StringCharacterIterator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -64,39 +62,7 @@ public class EntityJsonHelper {
             } else {
                 String valueStr = value.getString(name);
                 if (UtilValidate.isNotEmpty(valueStr)) {
-                    // check each character, if line-feed or carriage-return is found set needsCdata to true; also look for invalid characters
-                    /*for (int i = 0; i < valueStrBld.length(); i++) {
-                        char curChar = valueStrBld.charAt(i);
-
-                        switch (curChar) {
-                            case '\\':
-                                valueStrBld.replace(i, i + 1, "\\\\");
-                                break;
-                            case '/':
-                                valueStrBld.replace(i, i + 1, "\\/");
-                                break;
-                            case 0x8: //backspace, \b
-                                valueStrBld.replace(i, i + 1, "\\b");
-                                break;
-                            case 0xC: // form feed, \f
-                                valueStrBld.replace(i, i + 1, "\\f");
-                                break;
-                            case 0xA: // newline, \n
-                                valueStrBld.replace(i, i + 1, "\\n");
-                                break;
-                            case 0xD: // carriage return, \r
-                                valueStrBld.replace(i, i + 1, "\\r");
-                                break;
-                            case 0x9:// tab, \t
-                                valueStrBld.replace(i, i + 1, "\\t");
-                                break;
-                            case '"':
-                                valueStrBld.replace(i, i + 1, "\"");
-                                break;
-                        }
-
-                }*/
-                    valueStr = normalizeJSON(valueStr);
+                    valueStr = escapeJson(valueStr);
                     fieldMap.put(name, valueStr);
                 }
             }
@@ -149,7 +115,7 @@ public class EntityJsonHelper {
             } else {
                 String valueStr = value.getString(name);
                 if (UtilValidate.isNotEmpty(valueStr)) {
-                    valueStr = normalizeJSON(valueStr);
+                    valueStr = escapeJson(valueStr);
                     fieldMap.put(name, valueStr);
                 }
             }
@@ -174,37 +140,24 @@ public class EntityJsonHelper {
         textBuilder.append("}");
     }
 
-    public static String normalizeJSON(String aText) {
+    public static String escapeJson(String aText) {
         if (UtilValidate.isEmpty(aText)) {
             return aText;
         }
-        //StringBuilder result = new StringBuilder();
-        String result = new String();
+        String result = aText.replace("\"", "&quot;");
+        result = org.apache.commons.text.StringEscapeUtils.escapeJson(aText);
+
+        /*String result = new String();
         StringCharacterIterator iterator = new StringCharacterIterator(aText);
         char character = iterator.current();
         while (character != StringCharacterIterator.DONE) {
-            /*switch (character) {
-                case '\\':
-                case '/':
-                case 0x8: //backspace, \b
-                case 0xC: // form feed, \f
-                case 0xA: // newline, \n
-                case 0xD: // carriage return, \r
-                case 0x9:// tab, \t
-                case '"':
-                    result.append("\\");
-                default:
-                    result.append(character);
-                    character = iterator.next();
-                    break;
-            }*/
             switch (character) {
                 case '\\':
                     result = result + "\\\\";
                     character = iterator.next();
                     break;
                 case '/':
-                    result = result + "\\/";
+                    result = result + "\\\\/";
                     character = iterator.next();
                     break;
                 case 0x8: //backspace, \b
@@ -220,7 +173,7 @@ public class EntityJsonHelper {
                     character = iterator.next();
                     break;
                 case 0xD: // carriage return, \r
-                    result = result + "\\\\n";
+                    result = result + "\\\\r";
                     character = iterator.next();
                     break;
                 case 0x9:// tab, \t
@@ -228,7 +181,8 @@ public class EntityJsonHelper {
                     character = iterator.next();
                     break;
                 case '"':
-                    result = result + "\\\"";
+                    //result = result + "\\\"";
+                    result = result + "&quot;";
                     character = iterator.next();
                     break;
                 default:
@@ -236,8 +190,7 @@ public class EntityJsonHelper {
                     character = iterator.next();
                     break;
             }
-
-        }
+        }*/
         return result.toString();
     }
 }
